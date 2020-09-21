@@ -23,4 +23,5 @@ Route::group(['prefix' => 'api'], function () {
     Auth::routes();
     Route::post('/test', 'MainController@test');
     Route::post('/registration', 'MainController@registration');
+    Route::post('/getusers', 'MainController@getotherusers');
 });

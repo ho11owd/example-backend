@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
 
 class MainController extends Controller
 {
@@ -60,5 +61,15 @@ class MainController extends Controller
             "message" => "success",
             "name" => $request->input('name')
         ]);
+    }
+
+    public function getotherusers(Request $request){
+        $username = $request->input('name');
+
+        $usersData = DB::table('users')
+            ->select('name', 'email', 'is_admin', 'created_at', 'id')
+            ->where('name', '!=', $username);
+
+        return Response::json($usersData);
     }
 }
