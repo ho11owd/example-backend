@@ -24,4 +24,5 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/test', 'MainController@test');
     Route::post('/registration', 'MainController@registration');
     Route::post('/getusers', 'MainController@getotherusers');
+    Route::put('/profiledit', 'MainController@profiledit');
 });
