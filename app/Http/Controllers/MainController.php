@@ -17,7 +17,7 @@ class MainController extends Controller
     public function test()
     {
         return response()->json([
-            "message" => "Test Success"
+            "message" => "Тест амжилттай. Сервертэй холбогдлоо."
         ]);
     }
 
