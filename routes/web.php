@@ -25,4 +25,5 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/registration', 'MainController@registration');
     Route::post('/getusers', 'MainController@getotherusers');
     Route::put('/profiledit', 'MainController@profiledit');
+    Route::delete('/deletion', 'MainController@deletion');
 });

@@ -101,4 +101,14 @@ class MainController extends Controller
 
         return response()->json([$usersData]);
     }
+
+    public function deletion(Request $request){
+        $userid = $request->input('id');
+        $name = $request->input('name');
+        DB::table('users')->where('id', $userid)->delete();
+        return response()->json([
+            "message" => "success",
+            "name" => $name
+        ]);
+    }
 }
