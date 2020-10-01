@@ -14,10 +14,11 @@ class MainController extends Controller
 {
 
     //
-    public function test()
+    public function test(Request $request)
     {
         return response()->json([
-            "message" => "Тест амжилттай. Сервертэй холбогдлоо."
+            "message" => "Тест амжилттай. Сервертэй холбогдлоо.",
+            "name" => $request->input('name')
         ]);
     }
 
@@ -64,6 +65,7 @@ class MainController extends Controller
 
     public function profiledit(Request $request){
         $rules = [
+            'id' => ['requered'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -104,11 +106,10 @@ class MainController extends Controller
 
     public function deletion(Request $request){
         $userid = $request->input('id');
-        $name = $request->input('name');
         DB::table('users')->where('id', $userid)->delete();
         return response()->json([
             "message" => "success",
-            "name" => $name
+            "id" => $userid
         ]);
     }
 }
