@@ -81,6 +81,12 @@ class MainController extends Controller
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
+        if ($validator->fails()) {
+            return response()->json([
+                "message" => "failed",
+            ])->withErrors($validator);
+        }
+
         DB::table('users')->where('id', $request->input('id'))->update(
             ['name' => $request->input('name'),
             'email' => $request->input('email'),
