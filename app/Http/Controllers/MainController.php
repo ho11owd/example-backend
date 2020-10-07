@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class MainController extends Controller
 {
@@ -65,7 +66,7 @@ class MainController extends Controller
 
     public function profiledit(Request $request){
         $rules = [
-            'id' => ['requered'],
+            'id' => ['required'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -82,6 +83,7 @@ class MainController extends Controller
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
+            Log::info(json_encode($validator));
             return response()->json([
                 "message" => "failed",
             ])->withErrors($validator);
