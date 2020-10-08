@@ -27,6 +27,13 @@ class UserSeeder extends Seeder
                 'remember_token' => Str::random(60),
                 'is_admin'       => false
             ]);
+            User::create([
+                'name'           => 'Tester_02',
+                'email'          => 'tester_02@example.local',
+                'password'       => bcrypt('password01'),
+                'remember_token' => Str::random(60),
+                'is_admin'       => true
+            ]);
         }
     }
 }
