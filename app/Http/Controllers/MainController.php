@@ -17,21 +17,29 @@ class MainController extends Controller
     //
     public function test(Request $request)
     {
+        if ($request->input('id')) {
+            $id = $request->input('id');
+            $result = DB::table('users')
+                ->select('name')
+                ->where('id', $id)
+                ->get();
+        }
         return response()->json([
             "message" => "Тест амжилттай. Сервертэй холбогдлоо.",
-            "name" => $request->input('name')
+            "result" => $result
         ]);
     }
 
     public function registration(Request $request)
     {
+        
         $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
         $messages = [
-            'unique' => 'Албан тушаалын нэр давхацсан байна. Өөр албан тушаалын нэр оруулна уу.',
+            'unique' => 'Нэр давхацсан байна. Өөр албан тушаалын нэр оруулна уу.',
             'required' => 'Энэ талбар хоосон байж болохгүй.',
             'max' => 'Тэмдэгтийн тоо хэтэрсэн байна.',
             'email' => 'И-мэйл хаяг алдаатай байна. Бодит и-мэйл хаяг оруулна уу.',
@@ -47,8 +55,8 @@ class MainController extends Controller
             ])->withErrors($validator);
         }
 
-        DB::table('users')->insert(
-            ['name' => $request->input('name'),
+        DB::table('users')->insert([
+            'name' => $request->input('name'),
             'email' => $request->input('email'),
             'email_verified_at' => null,
             'password' => Hash::make($request->input('password')),
@@ -72,7 +80,7 @@ class MainController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
          $messages = [
-            'unique' => 'Албан тушаалын нэр давхацсан байна. Өөр албан тушаалын нэр оруулна уу.',
+            'unique' => 'Нэр давхацсан байна. Өөр албан тушаалын нэр оруулна уу.', ## Problem in update
             'required' => 'Энэ талбар хоосон байж болохгүй.',
             'max' => 'Тэмдэгтийн тоо хэтэрсэн байна.',
             'email' => 'И-мэйл хаяг алдаатай байна. Бодит и-мэйл хаяг оруулна уу.',
@@ -89,12 +97,12 @@ class MainController extends Controller
             ])->withErrors($validator);
         }
 
-        DB::table('users')->where('id', $request->input('id'))->update(
-            ['name' => $request->input('name'),
+        DB::table('users')->where('id', $request->input('id'))->update([
+            'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
-            'updated_at' => Carbon::now()]
-        );
+            'updated_at' => Carbon::now()
+        ]);
 
         return response()->json([
             "message" => "success",
