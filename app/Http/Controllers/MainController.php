@@ -15,8 +15,7 @@ class MainController extends Controller
 {
 
     //
-    public function test(Request $request)
-    {
+    public function test(Request $request){
         if ($request->input('id')) {
             $id = $request->input('id');
             $result = DB::table('users')
@@ -30,8 +29,7 @@ class MainController extends Controller
         ]);
     }
 
-    public function registration(Request $request)
-    {
+    public function registration(Request $request){
         
         $rules = [
             'name' => ['required', 'string', 'max:255'],
@@ -63,8 +61,8 @@ class MainController extends Controller
             'is_admin' => ($request->input('is_admin')) ? 1 : 0,
             'remember_token' => Str::random(60),
             'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()]
-        );
+            'updated_at' => Carbon::now()
+        ]);
 
         return response()->json([
             "message" => "success",
@@ -79,8 +77,7 @@ class MainController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
-         $messages = [
-            'unique' => 'Нэр давхацсан байна. Өөр албан тушаалын нэр оруулна уу.', ## Problem in update
+        $messages = [
             'required' => 'Энэ талбар хоосон байж болохгүй.',
             'max' => 'Тэмдэгтийн тоо хэтэрсэн байна.',
             'email' => 'И-мэйл хаяг алдаатай байна. Бодит и-мэйл хаяг оруулна уу.',
