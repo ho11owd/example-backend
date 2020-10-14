@@ -36,6 +36,7 @@ class MainController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
+
         $messages = [
             'unique' => 'Нэр давхацсан байна. Өөр албан тушаалын нэр оруулна уу.',
             'required' => 'Энэ талбар хоосон байж болохгүй.',
