@@ -22,6 +22,7 @@ Route::get('/', function () {
 Route::group(['prefix' => 'api'], function () {
     Auth::routes();
     Route::put('/test', 'MainController@test');
+    Route::put('/test2', 'MainController@test2');
     Route::post('/registration', 'MainController@registration');
     Route::post('/getusers', 'MainController@getotherusers');
     Route::put('/profiledit', 'MainController@profiledit');

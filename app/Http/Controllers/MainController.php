@@ -29,6 +29,26 @@ class MainController extends Controller
         ]);
     }
 
+    public function test2(Request $request){
+        if ($request->input('id')) {
+            $id = $request->input('id');
+            $result = DB::table('users')
+                ->select('name')
+                ->where('id', $id)
+                ->get();
+        }
+        return response()->json([
+            "message" => "Тест 2 амжилттай. Сервертэй холбогдлоо.",
+            "result" => $result
+        ]);
+    }
+
+    public function get_user_roles(Request $request){
+        return response()->json([
+            "message" => "Албан тушаалууд.",
+        ]);
+    }
+
     public function registration(Request $request){
         
         $rules = [
